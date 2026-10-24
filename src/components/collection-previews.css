@@ -1,0 +1,43 @@
+.collection-preview{display:grid;place-items:center;overflow:hidden;pointer-events:none;isolation:isolate}
+.collection-preview svg{display:block;width:100%;height:100%;overflow:visible}
+.aura-preview svg{max-width:390px;max-height:380px}
+.aura-preview__bottle{transform-origin:180px 175px;animation:aura-preview-pour 9s ease-in-out infinite;animation-play-state:paused;filter:drop-shadow(13px 16px 15px rgba(2,9,10,.28))}
+.aura-preview__cap{animation:aura-preview-cap 9s ease-in-out infinite;animation-play-state:paused}
+.aura-preview__water{opacity:0;animation:aura-preview-water 9s ease-in-out infinite;animation-play-state:paused}
+.aura-preview[data-preview-active=true] :is(.aura-preview__bottle,.aura-preview__cap,.aura-preview__water){animation-play-state:running}
+@keyframes aura-preview-pour{0%,12%,25%,77%,100%{transform:translateY(0) rotate(0)}17%{transform:translateY(-3px) rotate(0)}40%,61%{transform:translateY(-4px) rotate(-50deg)}}
+@keyframes aura-preview-cap{0%,13%,91%,100%{transform:translateY(0)}27%,77%{transform:translateY(-35px)}}
+@keyframes aura-preview-water{0%,38%,62%,100%{opacity:0}44%,59%{opacity:1}}
+
+.chronos-preview{perspective:850px}
+.chronos-preview__orbit{position:absolute;width:min(360px,82%);aspect-ratio:1;border:1px solid rgba(46,45,42,.22);border-radius:50%;transform:rotateX(62deg) rotate(-18deg)}
+.chronos-preview__watch{position:absolute;left:50%;top:50%;width:min(280px,72%);aspect-ratio:1;border-radius:50%;padding:11px;background:linear-gradient(135deg,#91999b,#343d43 36%,#a6acad 70%,#313b42);border:2px solid #59636a;box-shadow:14px 22px 30px rgba(29,35,38,.23),inset 0 0 0 3px #424c52;transform:translate(-50%,-50%) rotateY(-12deg) rotateZ(-6deg);animation:chronos-preview-pose 10s ease-in-out infinite;animation-play-state:paused;transform-style:preserve-3d}
+.chronos-preview[data-preview-active=true] .chronos-preview__watch{animation-play-state:running}
+.chronos-preview__watch::before{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid rgba(250,252,247,.7);pointer-events:none}
+.chronos-preview__crown{position:absolute;right:-15px;top:45%;width:15px;height:27px;border:2px solid #5d666a;border-radius:3px;background:repeating-linear-gradient(90deg,#6b757a 0 2px,#aab2b2 2px 3px);transform:translateZ(-6px)}
+.chronos-preview__dial{position:relative;width:100%;height:100%;overflow:hidden;border-radius:50%;background:radial-gradient(circle at 50% 50%,#485055 0 7%,transparent 8%),repeating-radial-gradient(circle at 50% 50%,transparent 0 31px,rgba(198,180,140,.35) 32px 33px,transparent 34px 37px),#22292d;border:6px solid #171d21;box-shadow:inset 0 0 0 2px #afaaa0,inset 0 0 24px #0b1114}
+.chronos-preview__dial::before{content:"";position:absolute;inset:14%;border:1px solid rgba(220,221,209,.2);border-radius:50%}
+.chronos-preview__bridge{position:absolute;z-index:1;left:9%;right:9%;top:46%;height:9%;border-radius:8px;background:linear-gradient(#5b6669,#313a40 52%,#778183);box-shadow:0 2px 4px rgba(0,0,0,.5);transform:rotate(-32deg)}
+.chronos-preview__bridge--two{transform:rotate(58deg);top:47%;background:linear-gradient(#333d42,#687076,#2d363b)}
+.chronos-preview__gear{position:absolute;z-index:0;width:27%;aspect-ratio:1;border-radius:50%;border:9px dotted #ad9b77;box-shadow:inset 0 0 0 5px #626b69,0 0 0 3px #464e50;animation:chronos-preview-gear 24s linear infinite;animation-play-state:paused}
+.chronos-preview__gear::after{content:"";position:absolute;inset:37%;border-radius:50%;background:#b7aba0}
+.chronos-preview__gear--one{left:14%;top:37%}
+.chronos-preview__gear--two{right:15%;top:30%;width:22%;border-color:#829194;animation-direction:reverse;animation-duration:18s}
+.chronos-preview[data-preview-active=true] .chronos-preview__gear{animation-play-state:running}
+.chronos-preview__balance{position:absolute;z-index:1;bottom:14%;left:39%;width:22%;aspect-ratio:1;border:4px solid #b9a77f;border-radius:50%;box-shadow:inset 0 0 0 3px #4f5b5d}
+.chronos-preview__marker{position:absolute;z-index:4;left:calc(50% - 1px);top:5%;width:2px;height:7%;background:#e5e0cf;transform-origin:50% 640%}
+.chronos-preview__hand{position:absolute;z-index:6;left:calc(50% - 2px);bottom:50%;width:4px;border-radius:4px 4px 1px 1px;transform-origin:50% 100%;background:#e6e2d7;box-shadow:0 1px 2px #060a0d;transition:transform .9s linear}
+.chronos-preview__hand--hour{height:22%;width:6px;left:calc(50% - 3px);background:#c4b99f}
+.chronos-preview__hand--minute{height:33%}
+.chronos-preview__hand--second{z-index:7;height:37%;width:2px;left:calc(50% - 1px);background:#ed9977;transform:rotate(var(--second-angle));animation:chronos-preview-second 60s linear infinite;animation-play-state:paused;transition:none}
+.chronos-preview[data-preview-active=true] .chronos-preview__hand--second{animation-play-state:running}
+.chronos-preview__pin{position:absolute;z-index:8;left:calc(50% - 5px);top:calc(50% - 5px);width:10px;height:10px;border-radius:50%;background:#e2ddd0;border:2px solid #3a4346}
+.chronos-preview__wordmark{position:absolute;z-index:3;top:24%;left:0;width:100%;text-align:center;color:#e3ddcc;font:8px 'DM Mono',monospace;letter-spacing:.18em}
+@keyframes chronos-preview-pose{0%,100%{transform:translate(-50%,-50%) rotateY(-12deg) rotateZ(-6deg)}50%{transform:translate(-50%,-50%) rotateY(14deg) rotateZ(4deg)}}
+@keyframes chronos-preview-gear{to{transform:rotate(360deg)}}
+@keyframes chronos-preview-second{from{transform:rotate(var(--second-angle))}to{transform:rotate(calc(var(--second-angle) + 360deg))}}
+
+.loop-preview svg{max-width:980px;max-height:390px;filter:drop-shadow(13px 17px 10px rgba(70,26,14,.16))}
+.loop-preview__marble{filter:drop-shadow(2px 3px 2px rgba(20,25,31,.45))}
+@media(max-width:700px){.aura-preview svg{max-width:330px}.chronos-preview__watch{width:min(230px,78%)}.loop-preview svg{width:100%;max-width:100%;transform:none}.loop-preview{overflow:hidden}}
+@media(prefers-reduced-motion:reduce){.aura-preview__bottle,.aura-preview__cap,.aura-preview__water,.chronos-preview__watch,.chronos-preview__gear,.chronos-preview__hand--second{animation:none!important}.chronos-preview__hand{transition:none}}

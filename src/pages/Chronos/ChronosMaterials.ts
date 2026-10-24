@@ -1,0 +1,10 @@
+// Named PBR roles let one finish controller update the existing meshes in place.
+export const caseMetal = { name: 'case', color: '#545f5e', metalness: 0.67, roughness: 0.46 }
+export const bezelMetal = { name: 'bezel', color: '#3d4848', metalness: 0.64, roughness: 0.41 }
+export const edgeMetal = { name: 'edge', color: '#a3aaa4', metalness: 0.7, roughness: 0.31 }
+export const bridgeMetal = { name: 'bridge', color: '#727f7c', metalness: 0.57, roughness: 0.48 }
+export const movementDark = { name: 'dark', color: '#252e2d', metalness: 0.4, roughness: 0.63 }
+export const champagne = { name: 'champagne', color: '#c4a77b', metalness: 0.65, roughness: 0.39 }
+export const paleMarker = { name: 'marker', color: '#e2d9c7', metalness: 0.32, roughness: 0.42 }
+export const strapMaterial = { name: 'strap', color: '#252a29', metalness: 0.04, roughness: 0.89 }
+export const strapSeam = { name: 'strap-seam', color: '#454e4a', metalness: 0.07, roughness: 0.82 }

@@ -1,0 +1,157 @@
+.chronos-page{min-height:100vh;background:#111311;color:#eeeae1}
+.site.chronos-page{overflow:clip}
+.chronos-page .nav{background:#111311;border-color:rgba(234,228,213,.15)}
+.chronos-page .nav .logo span,.chronos-page .nav nav span{color:#c4ae85}
+.chronos-page :focus-visible{outline:2px solid #d9c29c;outline-offset:5px}
+.chronos-story{position:relative;--chronos-stage-height:max(760px,calc(100svh - 94px))}
+.chronos-story__visual{position:sticky;top:0;height:var(--chronos-stage-height);margin-top:calc(-1 * var(--chronos-stage-height));z-index:2;pointer-events:none}
+.chronos-story__stage{position:relative;height:100%}
+.chronos-hero{position:relative;isolation:isolate;min-height:max(760px,calc(100svh - 94px));overflow:hidden;border-bottom:1px solid rgba(224,217,201,.15);background:#111311}
+.chronos-hero__ambient{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 36% 49% at 52% 46%,rgba(118,105,82,.24),rgba(45,47,42,.19) 50%,transparent 85%),linear-gradient(115deg,rgba(5,7,6,.63),transparent 31%,rgba(2,4,3,.49) 94%)}
+.chronos-hero__orbit{position:absolute;top:48%;left:50%;width:min(64vw,800px);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none}
+.chronos-hero__orbit span{position:absolute;border:1px solid rgba(195,181,151,.12);border-radius:50%;inset:0}
+.chronos-hero__orbit span:nth-child(2){inset:10%;border-color:rgba(195,181,151,.08)}
+.chronos-hero__orbit span:nth-child(3){inset:22%;border-color:rgba(195,181,151,.07)}
+.chronos-hero__orbit:before,.chronos-hero__orbit:after{content:'';position:absolute;top:50%;left:-8%;width:116%;height:1px;background:linear-gradient(90deg,transparent,rgba(195,181,151,.12),transparent)}
+.chronos-hero__orbit:after{transform:rotate(90deg)}
+.chronos-hero__meta{position:absolute;top:34px;left:5vw;right:5vw;display:flex;justify-content:space-between;color:#aaa99f;font:10px 'DM Mono',monospace;letter-spacing:.17em;z-index:4}
+.chronos-hero__title{position:absolute;z-index:1;top:46%;left:50%;width:100%;transform:translate(-50%,-50%);margin:0;padding-right:.055em;font-size:clamp(105px,18.2vw,310px);line-height:.8;letter-spacing:-.12em;font-weight:600;text-align:center;white-space:nowrap;color:#e7decc;opacity:.15;pointer-events:none;user-select:none}
+.chronos-hero__title span{color:#c4ae85}
+.chronos-hero__watch{position:absolute;z-index:2;width:min(55vw,760px);height:min(80vh,710px);min-height:570px;left:50%;top:48%;transform:translate(-50%,-50%);filter:drop-shadow(25px 30px 32px rgba(0,0,0,.55));pointer-events:auto}
+.chronos-story.is-exploring .chronos-hero__watch{pointer-events:none}
+.chronos-watch-canvas,.chronos-watch-fallback{width:100%;height:100%;display:block}
+.chronos-watch-fallback{object-fit:contain;padding:4% 12%}
+.chronos-hero__side{position:absolute;left:5vw;top:42%;z-index:3;display:flex;gap:15px;align-items:flex-start;color:#a9a99d;font:10px/1.8 'DM Mono',monospace;letter-spacing:.14em}
+.chronos-hero__rule{width:31px;height:1px;margin-top:8px;background:#bbaa8a}
+.chronos-controls{position:absolute;z-index:4;right:5vw;top:34%;width:226px;padding:3px 0 3px 18px;border-left:1px solid rgba(207,185,148,.48);background:linear-gradient(90deg,rgba(17,19,17,.84),rgba(17,19,17,.25));font:10px 'DM Mono',monospace;letter-spacing:.12em;color:#b8baae}
+.chronos-controls__top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;color:#8f9b94}
+.chronos-controls__top output{color:#e7dfcd;font-size:14px;letter-spacing:.05em;font-variant-numeric:tabular-nums}
+.chronos-controls__modes{display:flex;border:1px solid rgba(199,185,158,.35);width:max-content}
+.chronos-controls__modes button{appearance:none;border:0;background:transparent;color:#a2a9a1;font:10px 'DM Mono',monospace;letter-spacing:.12em;padding:10px 12px;cursor:pointer;transition:background .2s,color .2s}
+.chronos-controls__modes button[aria-pressed="true"]{background:#c4a77b;color:#151b19}
+.chronos-controls__modes button:hover:not([aria-pressed="true"]){color:#fff;background:rgba(255,255,255,.08)}
+.chronos-controls__hint{display:block;margin:12px 0 0;color:#87948e;font-size:9px;line-height:1.5;letter-spacing:.1em}
+.chronos-controls__adjust{margin-top:17px}
+.chronos-controls__adjust label{display:flex;justify-content:space-between;color:#c4c9bd;font-size:9px;gap:6px}
+.chronos-controls__adjust label span{color:#e7dfcd;font-variant-numeric:tabular-nums}
+.chronos-controls__adjust input{width:100%;height:24px;margin:7px 0 0;accent-color:#c4a77b;cursor:pointer}
+.chronos-hero__bottom{position:absolute;z-index:3;left:5vw;right:5vw;bottom:38px;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:end}
+.chronos-hero__bottom-copy span,.chronos-scroll,.chronos-hero__edition,.chronos-detail__index,.chronos-return{font:10px 'DM Mono',monospace;letter-spacing:.14em}
+.chronos-hero__bottom-copy span,.chronos-hero__edition{color:#a4a499}
+.chronos-hero__bottom-copy p{margin:14px 0 0;font-size:clamp(30px,3.2vw,50px);font-weight:500;letter-spacing:-.075em;line-height:1.05}
+.chronos-hero__bottom-copy em,.chronos-detail em{font-family:Georgia,serif;font-weight:400;color:#cfb994}
+.chronos-scroll{justify-self:center;display:flex;align-items:center;gap:17px;color:#b9b4a8;transition:color .2s}
+.chronos-scroll:hover{color:#fff}
+.chronos-scroll b{width:48px;height:48px;border:1px solid rgba(210,194,158,.5);border-radius:50%;display:grid;place-items:center;font:20px Manrope,sans-serif;transition:transform .25s}
+.chronos-scroll:hover b{transform:translateY(5px)}
+.chronos-hero__edition{justify-self:end}
+.chronos-movement{position:relative;min-height:330svh;background:radial-gradient(ellipse 45% 24% at 52% 29%,rgba(92,83,68,.13),transparent 100%),linear-gradient(#111311,#1a1d1a 35%,#111311 96%)}
+.chronos-movement__entry{position:absolute;top:17svh;left:7vw;z-index:3;max-width:370px;pointer-events:none}
+.chronos-movement__entry>span,.chronos-movement__systems>p,.chronos-movement__systems dt,.chronos-movement-overlay__intro>span,.chronos-movement-overlay__overview>span,.chronos-annotation>span,.chronos-playback{font:10px 'DM Mono',monospace;letter-spacing:.14em}
+.chronos-movement__entry>span,.chronos-movement__systems>p,.chronos-movement-overlay__intro>span,.chronos-movement-overlay__overview>span{color:#bca987}
+.chronos-movement__entry h2{margin:25px 0 18px;font-size:clamp(48px,6vw,94px);line-height:.92;letter-spacing:-.085em;font-weight:500}
+.chronos-movement__entry em,.chronos-movement-overlay__intro em{font-family:Georgia,serif;font-weight:400;color:#cfb994}
+.chronos-movement__entry>p{max-width:280px;color:#aaa99f;font-size:14px;line-height:1.7}
+.chronos-movement__systems{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.chronos-movement-overlay{position:absolute;inset:0;z-index:3;opacity:0;visibility:hidden;pointer-events:none}
+.chronos-movement-overlay__intro{position:absolute;top:8%;left:7vw;opacity:0}
+.chronos-movement-overlay__intro p{margin:17px 0 0;font-size:clamp(29px,3vw,48px);line-height:1.02;letter-spacing:-.07em;font-weight:500}
+.chronos-movement-overlay__leaders{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.chronos-movement-overlay__leaders line{stroke:#b6a782;stroke-width:1;vector-effect:non-scaling-stroke;opacity:0}
+.chronos-movement-overlay__leaders circle{fill:#d5c49d;opacity:0}
+.chronos-annotation{position:absolute;width:min(24vw,260px);opacity:0;color:#e6e1d5}
+.chronos-annotation--gear{left:7vw;top:40%}
+.chronos-annotation--escapement{right:6vw;top:37%}
+.chronos-annotation--balance{left:7vw;top:58%}
+.chronos-annotation>span{display:block;color:#d1b98d}
+.chronos-annotation p{margin:12px 0 0;color:#bcbcb0;font:13px/1.65 Manrope,sans-serif;letter-spacing:0}
+.chronos-movement-overlay__overview{position:absolute;left:7vw;bottom:12%;max-width:280px;opacity:0}
+.chronos-movement-overlay__overview p{color:#d7d2c6;font-size:19px;line-height:1.35;letter-spacing:-.035em}
+.chronos-playback{position:absolute;right:7vw;bottom:6%;z-index:3;min-width:240px;opacity:0;pointer-events:auto;color:#c8c6ba}
+.chronos-playback__caption{display:block;margin-bottom:11px;color:#bca987}
+.chronos-playback__buttons{display:flex;border:1px solid rgba(202,185,150,.4);width:max-content}
+.chronos-playback__buttons button{appearance:none;border:0;background:rgba(17,19,17,.88);color:#b7b7aa;padding:10px 11px;font:10px 'DM Mono',monospace;letter-spacing:.09em;cursor:pointer;transition:background .2s,color .2s}
+.chronos-playback__buttons button+button{border-left:1px solid rgba(202,185,150,.25)}
+.chronos-playback__buttons button:hover:not([aria-pressed="true"]){background:#373a34;color:#fff}
+.chronos-playback__buttons button[aria-pressed="true"]{background:#c4a77b;color:#171a17}
+.chronos-playback__note{display:block;margin-top:10px;color:#9a9d93;font-size:9px;letter-spacing:.05em;line-height:1.5}
+.chronos-page:not(.is-scene-ready) .chronos-movement__systems,.chronos-page:has(.chronos-watch-fallback) .chronos-movement__systems{position:absolute;left:7vw;top:85svh;width:min(86vw,720px);height:auto;margin:0;padding:0;overflow:visible;clip:auto;white-space:normal}
+.chronos-movement__systems dl{display:grid;gap:16px;margin:22px 0}
+.chronos-movement__systems dt{color:#d1b98d}
+.chronos-movement__systems dd{margin:8px 0 0;color:#bcbcb0;font-size:13px;line-height:1.6}
+.chronos-detail{min-height:65vh;display:grid;grid-template-columns:1fr 2fr;gap:50px;padding:13vh 8vw 16vh;background:linear-gradient(#1b1e1b,#111311)}
+.chronos-detail__index{color:#a3a39a;padding-top:12px}
+.chronos-detail h2{font-size:clamp(54px,7vw,104px);font-weight:500;letter-spacing:-.085em;line-height:.94;margin:0 0 33px}
+.chronos-detail p{max-width:440px;color:#b7b6aa;font-size:15px;line-height:1.75}
+.chronos-return{display:inline-flex;gap:28px;margin-top:44px;border-bottom:1px solid #bba784;padding-bottom:12px;text-transform:uppercase;color:#eeeae1}
+.chronos-return span{font-size:17px;line-height:10px}
+@media(max-width:1050px){.chronos-controls{top:auto;bottom:130px}}
+@media(max-width:900px){.chronos-hero__watch{width:min(72vw,670px)}.chronos-hero__orbit{width:83vw}.chronos-hero__side{top:25%}.chronos-annotation{width:25vw}.chronos-annotation p{font-size:11px}}
+@media(max-width:700px){.chronos-page .nav{height:74px}.chronos-story{--chronos-stage-height:max(850px,calc(100svh - 74px))}.chronos-hero{min-height:max(850px,calc(100svh - 74px))}.chronos-hero__meta{top:25px;left:6vw;right:6vw;font-size:9px}.chronos-hero__meta span:last-child{display:none}.chronos-hero__title{font-size:21vw;top:30%;opacity:.21}.chronos-hero__orbit{width:105vw;top:43%}.chronos-hero__watch{width:min(100vw,490px);height:57vh;min-height:400px;max-height:560px;top:44%}.chronos-hero__side{left:6vw;top:14%;font-size:8px}.chronos-controls{right:6vw;bottom:126px;width:min(68vw,265px);padding-left:14px;background:linear-gradient(90deg,rgba(17,19,17,.96),rgba(17,19,17,.76))}.chronos-hero__bottom{left:6vw;right:6vw;bottom:28px;grid-template-columns:1fr auto}.chronos-hero__bottom-copy p{font-size:32px}.chronos-scroll span,.chronos-hero__edition{display:none}.chronos-movement{min-height:340svh}.chronos-movement__entry{left:6vw;top:14svh;max-width:82vw}.chronos-movement__entry h2{font-size:12vw}.chronos-movement__entry>p{font-size:13px}.chronos-movement-overlay__intro{top:8%;left:6vw}.chronos-movement-overlay__intro p{font-size:29px}.chronos-annotation{left:6vw;right:auto;top:76%;width:min(75vw,300px)}.chronos-annotation p{font-size:11px;line-height:1.45;margin-top:7px}.chronos-playback{left:6vw;right:auto;bottom:3%;min-width:0}.chronos-playback__note{font-size:8px}.chronos-movement-overlay__overview{left:6vw;bottom:20%;max-width:230px}.chronos-movement-overlay__overview p{font-size:16px}.chronos-detail{display:block;padding:11vh 7vw 14vh}.chronos-detail h2{margin-top:42px;font-size:14vw}.chronos-detail p{font-size:14px}}
+@media(max-width:390px){.chronos-hero__watch{height:53vh;min-height:375px;top:49%}.chronos-hero__bottom-copy p{font-size:29px}}
+@media(prefers-reduced-motion:reduce){.chronos-scroll,.chronos-scroll b,.chronos-controls__modes button,.chronos-playback__buttons button{transition:none}.chronos-movement{min-height:135svh}.chronos-movement__systems{position:absolute;left:7vw;top:65svh;width:min(86vw,720px);height:auto;margin:0;padding:0;overflow:visible;clip:auto;white-space:normal}}
+
+/* One sticky canvas spans the movement and anatomy chapters; it leaves with the story. */
+.chronos-anatomy{position:relative;min-height:360svh;background:radial-gradient(ellipse 42% 28% at 52% 38%,rgba(101,90,68,.12),transparent 100%),linear-gradient(#111311,#1b1c19 40%,#111311 96%)}
+.chronos-anatomy__entry{position:absolute;top:15svh;left:7vw;z-index:3;max-width:400px;pointer-events:none}
+.chronos-anatomy__entry>span:first-child,.chronos-anatomy__scroll-note,.chronos-anatomy__static>p,.chronos-anatomy__static strong,.chronos-anatomy-label>span,.chronos-anatomy-overlay__complete>span{font:10px 'DM Mono',monospace;letter-spacing:.14em;color:#c4ae85}
+.chronos-anatomy__entry h2{margin:24px 0 18px;font-size:clamp(50px,6.2vw,96px);font-weight:500;line-height:.94;letter-spacing:-.085em}
+.chronos-anatomy__entry em{font-family:Georgia,serif;color:#cfb994;font-weight:400}
+.chronos-anatomy__entry p{max-width:270px;color:#b6b5aa;font-size:14px;line-height:1.7}
+.chronos-anatomy__scroll-note{display:block;margin-top:29px;font-size:9px;color:#92988e}
+.chronos-anatomy-overlay{position:absolute;inset:0;z-index:4;opacity:0;visibility:hidden;pointer-events:none}
+.chronos-anatomy-overlay__leaders{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.chronos-anatomy-overlay__leaders line{stroke:#b8aa88;stroke-width:1;vector-effect:non-scaling-stroke;opacity:0}
+.chronos-anatomy-overlay__leaders circle{fill:#d1bc91;opacity:0}
+.chronos-anatomy-label{position:absolute;width:min(25vw,238px);opacity:0;color:#e8e3d7}
+.chronos-anatomy-label p{margin:10px 0 0;color:#b8b9ad;font:12px/1.55 Manrope,sans-serif;letter-spacing:0}
+.chronos-anatomy-label--crystal{right:7vw;top:19%}
+.chronos-anatomy-label--bezel{right:7vw;top:31%}
+.chronos-anatomy-label--hands{right:7vw;top:43%}
+.chronos-anatomy-label--dial{right:7vw;top:56%}
+.chronos-anatomy-label--movement{left:7vw;top:33%}
+.chronos-anatomy-label--plate{left:7vw;top:47%}
+.chronos-anatomy-label--case{left:7vw;top:61%}
+.chronos-anatomy-label--back{left:7vw;top:74%}
+.chronos-anatomy-overlay__complete{position:absolute;left:7vw;bottom:9%;max-width:290px;opacity:0}
+.chronos-anatomy-overlay__complete p{color:#e2ded1;font-size:22px;line-height:1.25;letter-spacing:-.04em}
+.chronos-anatomy__static{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.chronos-anatomy__static ol{list-style:none;padding:0;margin:20px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 30px}
+.chronos-anatomy__static li{display:grid;gap:7px}
+.chronos-anatomy__static li span{color:#b8b9ad;font-size:12px;line-height:1.5}
+.chronos-page:not(.is-scene-ready) .chronos-anatomy__static,.chronos-page:has(.chronos-watch-fallback) .chronos-anatomy__static{position:absolute;left:7vw;top:84svh;width:min(86vw,760px);height:auto;margin:0;padding:0;overflow:visible;clip:auto;white-space:normal}
+
+@media(max-width:900px){.chronos-anatomy-label{width:min(29vw,220px)}.chronos-anatomy-label p{font-size:11px}}
+@media(max-width:700px){.chronos-anatomy{min-height:330svh}.chronos-anatomy__entry{left:6vw;top:13svh;max-width:83vw}.chronos-anatomy__entry h2{font-size:12vw}.chronos-anatomy__entry p{font-size:13px}.chronos-anatomy-label{left:6vw;right:auto;top:76%;width:84vw}.chronos-anatomy-label p{font-size:11px;line-height:1.45;margin-top:7px}.chronos-anatomy-overlay__complete{left:6vw;bottom:14%}.chronos-anatomy-overlay__complete p{font-size:18px}.chronos-anatomy__static ol{grid-template-columns:1fr;gap:13px}}
+@media(prefers-reduced-motion:reduce){.chronos-anatomy{min-height:175svh}.chronos-anatomy__static{position:absolute;left:7vw;top:62svh;width:min(86vw,760px);height:auto;margin:0;padding:0;overflow:visible;clip:auto;white-space:normal}}
+
+/* The existing watch canvas remains sticky through this final inspection chapter. */
+.chronos-craft{position:relative;min-height:205svh;background:radial-gradient(ellipse 36% 32% at 54% 42%,rgba(109,100,79,.13),transparent 100%),linear-gradient(#111311,#1c1d19 48%,#111311)}
+.chronos-craft__stage{position:sticky;top:0;height:100svh;min-height:760px;z-index:3;pointer-events:none}
+.chronos-craft__heading{position:absolute;top:11%;left:7vw;max-width:360px}
+.chronos-craft__heading>span,.chronos-craft__views>span,.chronos-craft__finishes legend{font:10px 'DM Mono',monospace;letter-spacing:.14em;color:#c4ae85}
+.chronos-craft__heading h2{margin:23px 0 18px;font-size:clamp(50px,5.35vw,84px);font-weight:500;line-height:.94;letter-spacing:-.085em}
+.chronos-craft__heading em{font-family:Georgia,serif;color:#cfb994;font-weight:400}
+.chronos-craft__heading p{max-width:290px;color:#b6b5aa;font-size:14px;line-height:1.65}
+.chronos-craft__controls{position:absolute;left:7vw;right:7vw;bottom:7%;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:36px;pointer-events:auto}
+.chronos-craft__views,.chronos-craft__finishes{min-width:0}
+.chronos-craft__views>p,.chronos-craft__finishes>p{min-height:36px;max-width:340px;margin:12px 0 0;color:#afb2a9;font-size:12px;line-height:1.5}
+.chronos-craft__view-buttons{display:flex;flex-wrap:wrap;width:max-content;max-width:100%;margin-top:15px;border:1px solid rgba(202,185,150,.37)}
+.chronos-craft__view-buttons button{appearance:none;border:0;background:rgba(17,19,17,.88);color:#b9b7ac;padding:11px 13px;cursor:pointer;font:10px 'DM Mono',monospace;letter-spacing:.08em;transition:background .25s,color .25s}
+.chronos-craft__view-buttons button+button{border-left:1px solid rgba(202,185,150,.25)}
+.chronos-craft__view-buttons button[aria-pressed="true"]{background:#c4a77b;color:#171a17}
+.chronos-craft__view-buttons button:hover:not([aria-pressed="true"]){background:#363a35;color:#fff}
+.chronos-craft__view-buttons button:disabled{opacity:.45;cursor:default}
+.chronos-craft__finishes{border:0;margin:0;padding:0}
+.chronos-craft__finishes legend{padding:0}
+.chronos-craft__finish-options{display:flex;gap:21px;margin-top:15px}
+.chronos-craft__finish-options label{display:grid;grid-template-columns:20px auto;align-items:center;gap:9px;padding:8px 0 10px;border-bottom:1px solid rgba(202,185,150,.28);color:#aaa9a0;cursor:pointer;font:10px 'DM Mono',monospace;letter-spacing:.08em}
+.chronos-craft__finish-options label.is-selected{border-color:#d3bc90;color:#f1eadc}
+.chronos-craft__finish-options label:focus-within{outline:2px solid #d9c29c;outline-offset:4px}
+.chronos-craft__finish-options input{position:absolute;width:1px;height:1px;opacity:0}
+.chronos-craft__swatch{width:18px;height:18px;border-radius:50%;border:1px solid rgba(236,232,217,.54);box-shadow:inset 0 0 0 2px rgba(10,13,12,.2)}
+.chronos-craft__finishes:disabled{opacity:.48}
+.chronos-craft__fallback{grid-column:1/-1;margin:0;color:#b6b5aa;font-size:12px}
+@media(max-width:900px){.chronos-craft__controls{gap:18px}.chronos-craft__finish-options{gap:11px}.chronos-craft__view-buttons button{padding:10px 9px;font-size:9px}}
+@media(max-width:700px){.chronos-craft{min-height:190svh}.chronos-craft__stage{min-height:850px}.chronos-craft__heading{top:6%;left:6vw;right:6vw;max-width:85vw}.chronos-craft__heading h2{font-size:11vw;margin:15px 0 9px}.chronos-craft__heading p{max-width:285px;font-size:11px;line-height:1.5}.chronos-craft__controls{left:6vw;right:6vw;bottom:3%;grid-template-columns:1fr;gap:17px}.chronos-craft__views>span,.chronos-craft__finishes legend{font-size:9px}.chronos-craft__view-buttons{width:100%;margin-top:9px}.chronos-craft__view-buttons button{flex:1;padding:10px 5px;font-size:8px}.chronos-craft__views>p,.chronos-craft__finishes>p{min-height:0;max-width:none;margin:8px 0 0;font-size:10px}.chronos-craft__finish-options{justify-content:space-between;margin-top:9px}.chronos-craft__finish-options label{font-size:9px}.chronos-craft__swatch{width:15px;height:15px}}
+@media(prefers-reduced-motion:reduce){.chronos-craft__view-buttons button{transition:none}}
