@@ -16,6 +16,7 @@ export function ChronosVisual({ mode, exploreMinutes, playback, rig, overlayRef,
   mode: ChronosMode; exploreMinutes: number; playback: ChronosPlayback
   rig: ChronosRig; overlayRef: RefObject<HTMLDivElement | null>; anatomyOverlayRef: RefObject<HTMLDivElement | null>; onReady: () => void
 }) {
-  const fallback = <ChronosFallback mode={mode} exploreMinutes={exploreMinutes} />
-  return <ChronosCanvasBoundary fallback={fallback}><Suspense fallback={fallback}><ChronosCanvas mode={mode} exploreMinutes={exploreMinutes} playback={playback} rig={rig} overlayRef={overlayRef} anatomyOverlayRef={anatomyOverlayRef} onReady={onReady} /></Suspense></ChronosCanvasBoundary>
+  const unavailable = <ChronosFallback mode={mode} exploreMinutes={exploreMinutes} />
+  const loading = <ChronosFallback mode={mode} exploreMinutes={exploreMinutes} loading />
+  return <ChronosCanvasBoundary fallback={unavailable}><Suspense fallback={loading}><ChronosCanvas mode={mode} exploreMinutes={exploreMinutes} playback={playback} rig={rig} overlayRef={overlayRef} anatomyOverlayRef={anatomyOverlayRef} onReady={onReady} /></Suspense></ChronosCanvasBoundary>
 }

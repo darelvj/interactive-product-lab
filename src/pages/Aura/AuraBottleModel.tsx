@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react'
 import { CatmullRomCurve3, DoubleSide, Vector2, Vector3 } from 'three'
 import { bodyFinish, createWordmarkTexture, metalFinish } from './AuraMaterials'
 import type { AuraRig } from './AuraRig'
+import { AuraWater } from './AuraWater'
 
 // Radius, height. Overall ratio follows the 240 × 623 visible silhouette of the SVG.
 const bodyProfile = [
@@ -155,5 +156,6 @@ export function AuraBottleModel({ rig }: { rig: AuraRig }) {
     <AuraShoulder rig={rig} />
     <AuraCap rig={rig} />
     <AuraBase rig={rig} />
+    <AuraWater rig={rig} />
   </group>
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { formatClock, handAngles, localDaySeconds, type ChronosMode } from './ChronosTime'
 
-export function ChronosFallback({ mode, exploreMinutes }: { mode: ChronosMode; exploreMinutes: number }) {
+export function ChronosFallback({ mode, exploreMinutes, loading = false }: { mode: ChronosMode; exploreMinutes: number; loading?: boolean }) {
   const [liveSeconds, setLiveSeconds] = useState(() => localDaySeconds(new Date()))
   useEffect(() => {
     if (mode !== 'live') return
@@ -11,7 +11,7 @@ export function ChronosFallback({ mode, exploreMinutes }: { mode: ChronosMode; e
   const seconds = mode === 'live' ? liveSeconds : exploreMinutes * 60
   const hands = handAngles(seconds)
   const degrees = (radians: number) => -radians * 180 / Math.PI
-  return <svg className="chronos-watch-fallback" viewBox="0 0 500 580" role="img" aria-label={`Illustration of a CHRONOS skeleton watch showing ${formatClock(seconds)}`}>
+  return <svg className="chronos-watch-fallback" viewBox="0 0 500 580" role="img" aria-label={`${loading ? 'Illustration while the interactive CHRONOS view loads' : 'Static illustration; interactive CHRONOS 3D is unavailable'}, showing ${formatClock(seconds)}`}>
     <defs>
       <linearGradient id="chronos-metal" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#9aa8a3"/><stop offset=".48" stopColor="#465250"/><stop offset="1" stopColor="#7e8c86"/></linearGradient>
       <radialGradient id="chronos-dial"><stop stopColor="#283230"/><stop offset="1" stopColor="#121918"/></radialGradient>
@@ -38,5 +38,6 @@ export function ChronosFallback({ mode, exploreMinutes }: { mode: ChronosMode; e
     <g transform={`rotate(${degrees(hands.minute)} 250 290)`}><path d="M247 305 L248 230 L250 199 L252 230 L253 305 Z" fill="#e2d9c7"/></g>
     <g transform={`rotate(${degrees(hands.second)} 250 290)`}><line x1="250" y1="316" x2="250" y2="188" stroke="#c4a77b" strokeWidth="2"/></g>
     <circle cx="250" cy="290" r="5" fill="#c4a77b"/>
+    <text x="250" y="550" textAnchor="middle" fill="#a4aaa2" fontFamily="Arial,sans-serif" fontSize="8" letterSpacing="1.4">{loading ? 'PREPARING INTERACTIVE 3D VIEW' : 'STATIC VIEW / INTERACTIVE 3D UNAVAILABLE'}</text>
   </svg>
 }

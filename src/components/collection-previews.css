@@ -1,13 +1,11 @@
 .collection-preview{display:grid;place-items:center;overflow:hidden;pointer-events:none;isolation:isolate}
 .collection-preview svg{display:block;width:100%;height:100%;overflow:visible}
 .aura-preview svg{max-width:390px;max-height:380px}
-.aura-preview__bottle{transform-origin:180px 175px;animation:aura-preview-pour 9s ease-in-out infinite;animation-play-state:paused;filter:drop-shadow(13px 16px 15px rgba(2,9,10,.28))}
+.aura-preview__assembly{transform-origin:180px 175px;animation:aura-preview-pose 9s ease-in-out infinite;animation-play-state:paused;filter:drop-shadow(13px 16px 15px rgba(2,9,10,.28))}
 .aura-preview__cap{animation:aura-preview-cap 9s ease-in-out infinite;animation-play-state:paused}
-.aura-preview__water{opacity:0;animation:aura-preview-water 9s ease-in-out infinite;animation-play-state:paused}
-.aura-preview[data-preview-active=true] :is(.aura-preview__bottle,.aura-preview__cap,.aura-preview__water){animation-play-state:running}
-@keyframes aura-preview-pour{0%,12%,25%,77%,100%{transform:translateY(0) rotate(0)}17%{transform:translateY(-3px) rotate(0)}40%,61%{transform:translateY(-4px) rotate(-50deg)}}
-@keyframes aura-preview-cap{0%,13%,91%,100%{transform:translateY(0)}27%,77%{transform:translateY(-35px)}}
-@keyframes aura-preview-water{0%,38%,62%,100%{opacity:0}44%,59%{opacity:1}}
+.aura-preview[data-preview-active=true] :is(.aura-preview__assembly,.aura-preview__cap){animation-play-state:running}
+@keyframes aura-preview-pose{0%,12%,90%,100%{transform:translateY(0) rotate(0)}24%{transform:translateY(-7px) rotate(-4deg)}44%,59%{transform:translateY(-10px) rotate(-12deg)}77%{transform:translateY(-4px) rotate(-2deg)}}
+@keyframes aura-preview-cap{0%,23%,84%,100%{transform:translateY(0)}37%,69%{transform:translateY(-16px)}}
 
 .chronos-preview{perspective:850px}
 .chronos-preview__orbit{position:absolute;width:min(360px,82%);aspect-ratio:1;border:1px solid rgba(46,45,42,.22);border-radius:50%;transform:rotateX(62deg) rotate(-18deg)}
@@ -39,5 +37,8 @@
 
 .loop-preview svg{max-width:980px;max-height:390px;filter:drop-shadow(13px 17px 10px rgba(70,26,14,.16))}
 .loop-preview__marble{filter:drop-shadow(2px 3px 2px rgba(20,25,31,.45))}
+.product:focus-visible{outline:2px solid currentColor;outline-offset:-5px}
+.product .explore b{display:inline-block;transition:transform .25s ease}
+.product:is(:hover,:focus-visible) .explore b{transform:translate(3px,-3px)}
 @media(max-width:700px){.aura-preview svg{max-width:330px}.chronos-preview__watch{width:min(230px,78%)}.loop-preview svg{width:100%;max-width:100%;transform:none}.loop-preview{overflow:hidden}}
-@media(prefers-reduced-motion:reduce){.aura-preview__bottle,.aura-preview__cap,.aura-preview__water,.chronos-preview__watch,.chronos-preview__gear,.chronos-preview__hand--second{animation:none!important}.chronos-preview__hand{transition:none}}
+@media(prefers-reduced-motion:reduce){.aura-preview__assembly,.aura-preview__cap,.chronos-preview__watch,.chronos-preview__gear,.chronos-preview__hand--second{animation:none!important}.chronos-preview__hand{transition:none}.chronos-preview__hand--second{opacity:0}.product .explore b{transition:none}}

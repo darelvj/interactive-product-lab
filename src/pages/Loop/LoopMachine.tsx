@@ -7,8 +7,9 @@ import { createLoopRig } from './LoopRig'
 import { LoopMotion } from './LoopMotion'
 import { LoopGravityChamber } from './LoopGravityChamber'
 import type { LoopTrafficSimulation } from './LoopTrafficSimulation'
+import type { LoopStoryProgress } from './LoopStoryCamera'
 
-export function LoopMachine({ reducedMotion, simulation }: { reducedMotion: boolean; simulation: LoopTrafficSimulation }) {
+export function LoopMachine({ reducedMotion, simulation, progress }: { reducedMotion: boolean; simulation: LoopTrafficSimulation; progress: LoopStoryProgress }) {
   const materials = useMemo(createLoopMaterials, [])
   const rig = useMemo(createLoopRig, [])
 
@@ -27,6 +28,6 @@ export function LoopMachine({ reducedMotion, simulation }: { reducedMotion: bool
     <LoopTracks materials={materials} />
     <LoopLauncher materials={materials} rig={rig} />
     <LoopDiverter materials={materials} rig={rig} />
-    <LoopMotion materials={materials} rig={rig} reducedMotion={reducedMotion} simulation={simulation} />
+    <LoopMotion materials={materials} rig={rig} reducedMotion={reducedMotion} simulation={simulation} progress={progress} />
   </group>
 }

@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { ACESFilmicToneMapping } from 'three'
 import { AuraBottleModel } from './AuraBottleModel'
-import { AuraBottle } from './AuraBottle'
+import { AuraCanvasFallback } from './AuraCanvasFallback'
 import { AuraLighting } from './AuraLighting'
-import { AuraWater } from './AuraWater'
 import type { AuraRig } from './AuraRig'
 
 function SceneBridge({ rig, onReady }: { rig: AuraRig; onReady: () => void }) {
@@ -37,9 +36,9 @@ export default function AuraCanvas({ rig, onReady }: { rig: AuraRig; onReady: ()
     canvasRef.current?.removeEventListener('webglcontextlost', onContextLost)
   }, [])
 
-  if (failed) return <AuraBottle className="aura-hero__bottle" />
+  if (failed) return <AuraCanvasFallback />
 
-  return <div className="aura-hero__bottle aura-hero__canvas" role="img" aria-label="Three-dimensional AURA bottle in smoked silver with a brushed metal cap">
+  return <div className="aura-hero__bottle aura-hero__canvas" role="img" aria-label="Interactive three-dimensional view of the AURA bottle">
     <Canvas
       frameloop="demand"
       dpr={[1, 1.5]}
@@ -56,7 +55,6 @@ export default function AuraCanvas({ rig, onReady }: { rig: AuraRig; onReady: ()
       <group ref={node => { rig.turntable = node }} name="aura-turntable">
         <group ref={node => { rig.fluidPose = node }} name="aura-fluid-pose">
           <AuraBottleModel rig={rig} />
-          <AuraWater rig={rig} />
         </group>
       </group>
       <SceneBridge rig={rig} onReady={onReady} />

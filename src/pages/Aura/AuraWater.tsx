@@ -171,7 +171,7 @@ export function AuraWater({ rig }: { rig: AuraRig }) {
     rig.invalidate?.()
   })
 
-  return <group ref={group} name="aura-water-volume" position={[0, -.06, 0]} visible={false}>
+  return <group ref={group} name="aura-water-volume" visible={false}>
     <mesh geometry={side} name="contained-water">
       <meshPhysicalMaterial color="#6ca8b6" emissive="#1b4a57" emissiveIntensity={.18} metalness={0} roughness={.46} clearcoat={.15} clearcoatRoughness={.55} side={DoubleSide} />
     </mesh>

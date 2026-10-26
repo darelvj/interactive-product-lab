@@ -16,6 +16,7 @@ type Refs = {
   anatomy: RefObject<HTMLElement | null>
   anatomyOverlay: RefObject<HTMLDivElement | null>
   craft: RefObject<HTMLElement | null>
+  ending: RefObject<HTMLElement | null>
 }
 
 const frames = [
@@ -69,16 +70,17 @@ export function useChronosStory(refs: Refs, rig: ChronosRig, sceneReady: boolean
   const currentView = useRef(craftView)
   currentView.current = craftView
   useLayoutEffect(() => {
-    const { story, movement, overlay, anatomy, anatomyOverlay, craft } = refs
+    const { story, movement, overlay, anatomy, anatomyOverlay, craft, ending } = refs
     const storyNode = story.current
     const movementNode = movement.current
     const overlayNode = overlay.current
     const anatomyNode = anatomy.current
     const anatomyOverlayNode = anatomyOverlay.current
     const craftNode = craft.current
+    const endingNode = ending.current
     const camera = rig.camera
     const presentation = rig.presentation
-    if (!sceneReady || !storyNode || !movementNode || !overlayNode || !anatomyNode || !anatomyOverlayNode || !craftNode || !camera || !presentation) return
+    if (!sceneReady || !storyNode || !movementNode || !overlayNode || !anatomyNode || !anatomyOverlayNode || !craftNode || !endingNode || !camera || !presentation) return
 
     const media = gsap.matchMedia()
     media.add({ mobile: '(max-width: 700px)', motion: '(prefers-reduced-motion: no-preference)' }, context => {
@@ -94,11 +96,14 @@ export function useChronosStory(refs: Refs, rig: ChronosRig, sceneReady: boolean
       const anatomyEntry = anatomyNode.querySelector<HTMLElement>('.chronos-anatomy__entry')
       const anatomyActive = () => anatomyNode.getBoundingClientRect().top <= window.innerHeight
       const craftActive = () => craftNode.getBoundingClientRect().top <= window.innerHeight * .8
+      const endingActive = () => endingNode.getBoundingClientRect().top <= window.innerHeight
       const craftProgress = { value: 0 }
+      const endingProgress = { value: 0 }
       craftPose.current = craftFrame(currentView.current, mobile)
 
       const renderMovement = () => {
         const value = progress.value
+        presentation.position.set(0, 0, 0)
         applyAnatomyOffsets(rig, 0, mobile)
         anatomyOverlayNode.style.opacity = '0'
         anatomyOverlayNode.style.visibility = 'hidden'
@@ -139,6 +144,7 @@ export function useChronosStory(refs: Refs, rig: ChronosRig, sceneReady: boolean
 
       const renderAnatomy = () => {
         const value = anatomyProgress.value
+        presentation.position.set(0, 0, 0)
         if (anatomyEntry) anatomyEntry.style.opacity = String(1 - smooth(0.24, 0.36, value))
         overlayNode.style.opacity = '0'
         overlayNode.style.visibility = 'hidden'
@@ -167,7 +173,8 @@ export function useChronosStory(refs: Refs, rig: ChronosRig, sceneReady: boolean
       }
 
       const renderCraft = () => {
-        if (!craftActive()) return
+        if (!craftActive() || endingActive()) return
+        presentation.position.set(0, 0, 0)
         overlayNode.style.visibility = 'hidden'
         anatomyOverlayNode.style.visibility = 'hidden'
         storyNode.classList.add('is-exploring')
@@ -181,6 +188,29 @@ export function useChronosStory(refs: Refs, rig: ChronosRig, sceneReady: boolean
         const mix = (a: number, b: number) => gsap.utils.interpolate(a, b, blend)
         camera.position.set(mix(start.x, target.x), mix(start.y, target.y), mix(start.z, target.z))
         presentation.rotation.set(mix(start.pitch, target.pitch), mix(start.yaw, target.yaw), 0)
+        rig.invalidate?.()
+      }
+
+      const renderEnding = () => {
+        const value = motion ? smooth(0, 1, endingProgress.value) : 1
+        const start = craftFrame(currentView.current, mobile)
+        const target = mobile
+          ? { x: 0, y: 0, z: 11.1, yaw: 0.05, pitch: -0.025, offsetX: 0.12, offsetY: -0.82 }
+          : { x: 0, y: 0, z: 8.55, yaw: 0.07, pitch: -0.025, offsetX: 0.92, offsetY: 0 }
+        const mix = (a: number, b: number) => gsap.utils.interpolate(a, b, value)
+        applyAnatomyOffsets(rig, 0, mobile)
+        applyFocus(rig, { gear: 0, escapement: 0, balance: 0 })
+        rig.tiltX = 0
+        rig.tiltY = 0
+        overlayNode.style.opacity = '0'
+        overlayNode.style.visibility = 'hidden'
+        anatomyOverlayNode.style.opacity = '0'
+        anatomyOverlayNode.style.visibility = 'hidden'
+        if (anatomyEntry) anatomyEntry.style.opacity = '0'
+        storyNode.classList.add('is-exploring')
+        camera.position.set(mix(start.x, target.x), mix(start.y, target.y), mix(start.z, target.z))
+        presentation.rotation.set(mix(start.pitch, target.pitch), mix(start.yaw, target.yaw), 0)
+        presentation.position.set(mix(0, target.offsetX), mix(0, target.offsetY), 0)
         rig.invalidate?.()
       }
       rig.renderCraft = renderCraft
@@ -198,6 +228,10 @@ export function useChronosStory(refs: Refs, rig: ChronosRig, sceneReady: boolean
           value: 1, duration: 1, ease: 'none', onUpdate: renderCraft,
           scrollTrigger: { trigger: craftNode, start: 'top 80%', end: 'top 25%', scrub: .4, invalidateOnRefresh: true },
         })
+        gsap.to(endingProgress, {
+          value: 1, duration: 1, ease: 'none', onUpdate: renderEnding,
+          scrollTrigger: { trigger: endingNode, start: 'top bottom', end: 'top 28%', scrub: .45, invalidateOnRefresh: true },
+        })
       } else {
         // Static assembly information remains in the anatomy section.
         overlayNode.style.visibility = 'hidden'
@@ -209,8 +243,14 @@ export function useChronosStory(refs: Refs, rig: ChronosRig, sceneReady: boolean
           onLeaveBack: renderAnatomy,
         })
         if (staticCraft.isActive) renderCraft()
+        ScrollTrigger.create({
+          trigger: endingNode, start: 'top bottom', end: 'bottom top',
+          onEnter: renderEnding, onEnterBack: renderEnding,
+          onLeaveBack: renderCraft,
+        })
       }
-      if (craftActive()) renderCraft()
+      if (endingActive()) renderEnding()
+      else if (craftActive()) renderCraft()
       else if (motion && anatomyActive()) renderAnatomy()
       else renderMovement()
       return () => {
@@ -218,6 +258,7 @@ export function useChronosStory(refs: Refs, rig: ChronosRig, sceneReady: boolean
         storyNode.classList.remove('is-exploring')
         camera.position.set(0, 0, 9.8)
         presentation.rotation.set(0, 0, 0)
+        presentation.position.set(0, 0, 0)
         applyAnatomyOffsets(rig, 0, mobile)
         applyFocus(rig, { gear: 0, escapement: 0, balance: 0 })
         overlayNode.style.visibility = 'hidden'

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 export function usePreviewActivity() {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
+  const [pageVisible, setPageVisible] = useState(() => !document.hidden)
   const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
 
   useEffect(() => {
@@ -22,5 +23,12 @@ export function usePreviewActivity() {
     return () => media.removeEventListener('change', change)
   }, [])
 
-  return { ref, visible, reducedMotion, animate: visible && !reducedMotion }
+  useEffect(() => {
+    const change = () => setPageVisible(!document.hidden)
+    document.addEventListener('visibilitychange', change)
+    return () => document.removeEventListener('visibilitychange', change)
+  }, [])
+
+  const active = visible && pageVisible
+  return { ref, active, reducedMotion, animate: active && !reducedMotion }
 }

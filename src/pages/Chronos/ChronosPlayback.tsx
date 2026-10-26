@@ -9,7 +9,7 @@ const modes: { id: PlaybackMode; label: string }[] = [
 export function ChronosPlayback({ value, onChange }: {
   value: PlaybackMode; onChange: (value: PlaybackMode) => void
 }) {
-  return <div className="chronos-playback" aria-label="Mechanical movement playback">
+  return <div className="chronos-playback" role="group" aria-label="Mechanical movement playback">
     <span className="chronos-playback__caption">MOVEMENT / PLAYBACK</span>
     <div className="chronos-playback__buttons" role="group" aria-label="Mechanical movement speed">
       {modes.map(mode => <button key={mode.id} type="button" aria-pressed={value === mode.id} onClick={() => onChange(mode.id)}>{mode.label}</button>)}

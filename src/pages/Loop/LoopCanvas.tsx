@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { Canvas, useThree } from '@react-three/fiber'
-import { ACESFilmicToneMapping, PerspectiveCamera } from 'three'
+import { useCallback, useEffect, useRef, useState, type RefObject } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { ACESFilmicToneMapping } from 'three'
 import { LoopMachine } from './LoopMachine'
+import { LoopStoryCamera, type LoopStoryProgress } from './LoopStoryCamera'
 import type { LoopTrafficSimulation } from './LoopTrafficSimulation'
 
 function supportsWebGL() {
@@ -13,22 +14,14 @@ function supportsWebGL() {
   } catch { return false }
 }
 
-function MachineCamera() {
-  const { camera, size, invalidate } = useThree()
-  useEffect(() => {
-    const perspective = camera as PerspectiveCamera
-    const narrow = size.width < 650
-    const tablet = size.width < 980
-    perspective.position.set(narrow ? 6.8 : tablet ? 7.3 : 7.8, narrow ? 3.1 : tablet ? 3.5 : 3.8, narrow ? 20.2 : tablet ? 16.1 : 15.4)
-    perspective.fov = narrow ? 34 : tablet ? 28 : 27
-    perspective.lookAt(narrow ? 2.05 : 2.1, -.08, -.55)
-    perspective.updateProjectionMatrix()
-    invalidate()
-  }, [camera, invalidate, size.width])
-  return null
-}
-
-export default function LoopCanvas({ simulation, onReady, onUnavailable }: { simulation: LoopTrafficSimulation; onReady: () => void; onUnavailable: () => void }) {
+export default function LoopCanvas({ simulation, progress, overlayRef, activeBeat, onReady, onUnavailable }: {
+  simulation: LoopTrafficSimulation
+  progress: LoopStoryProgress
+  overlayRef: RefObject<HTMLDivElement | null>
+  activeBeat: number
+  onReady: () => void
+  onUnavailable: () => void
+}) {
   const [failed, setFailed] = useState(() => !supportsWebGL())
   const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -58,8 +51,8 @@ export default function LoopCanvas({ simulation, onReady, onUnavailable }: { sim
         onReady()
       }}
     >
-      <MachineCamera />
-      <LoopMachine reducedMotion={reducedMotion} simulation={simulation} />
+      <LoopStoryCamera progress={progress} overlayRef={overlayRef} activeBeat={activeBeat} reducedMotion={reducedMotion} />
+      <LoopMachine reducedMotion={reducedMotion} simulation={simulation} progress={progress} />
     </Canvas>
   </div>
 }

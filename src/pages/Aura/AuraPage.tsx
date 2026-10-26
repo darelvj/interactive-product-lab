@@ -24,7 +24,7 @@ export function AuraPage() {
   useAuraAppearance(rig, sceneReady, selectedFinish, hasCustomized, fluidActive)
 
   return <div className="site aura-page" ref={pageRef}>
-    <main><div className="aura-story">
+    <main id="main-content" tabIndex={-1}><div className="aura-story">
       <section className="aura-hero" aria-labelledby="aura-title">
         <div className="aura-hero__ambient" aria-hidden="true" />
         <div className="aura-hero__grain" aria-hidden="true" />

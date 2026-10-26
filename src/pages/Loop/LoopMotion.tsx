@@ -5,6 +5,7 @@ import type { LoopMaterials } from './LoopMaterials'
 import type { LoopRig } from './LoopRig'
 import { MAX_LOOP_MARBLES, type LoopOperatingMode, type LoopRouteMode, type LoopTrafficSimulation } from './LoopTrafficSimulation'
 import { loopModulePositions } from './LoopTrackGraph'
+import type { LoopStoryProgress } from './LoopStoryCamera'
 
 type LoopDebug = {
   snapshot: () => ReturnType<LoopTrafficSimulation['snapshot']>
@@ -21,7 +22,7 @@ type LoopDebug = {
 
 declare global { interface Window { __loopDebug?: LoopDebug } }
 
-export function LoopMotion({ materials, rig, reducedMotion, simulation: sim }: { materials: LoopMaterials; rig: LoopRig; reducedMotion: boolean; simulation: LoopTrafficSimulation }) {
+export function LoopMotion({ materials, rig, reducedMotion, simulation: sim, progress }: { materials: LoopMaterials; rig: LoopRig; reducedMotion: boolean; simulation: LoopTrafficSimulation; progress: LoopStoryProgress }) {
   const marbleGeometry = useMemo(() => new SphereGeometry(.105, 24, 16), [])
   const marbles = useRef<(Mesh | null)[]>([])
   const { invalidate, setFrameloop } = useThree()
@@ -60,8 +61,8 @@ export function LoopMotion({ materials, rig, reducedMotion, simulation: sim }: {
     materials.chamberRingMiddle.emissiveIntensity = .16 + (.72 + .18 * chaos) * sim.chamberRingPulse[1]
     materials.chamberRingUpper.emissiveIntensity = .16 + (.72 + .18 * chaos) * sim.chamberRingPulse[2]
     materials.chamberStatus.emissiveIntensity = .2 + (.55 + .14 * chaos) * sim.chamberStatusPulse
-    if (rig.violetRimLight) rig.violetRimLight.intensity = .9 + .32 * chaos
-    if (rig.coralAccentLight) rig.coralAccentLight.intensity = 7 + 1.15 * chaos
+    if (rig.violetRimLight) rig.violetRimLight.intensity = .9 + .32 * chaos + .13 * progress.finale
+    if (rig.coralAccentLight) rig.coralAccentLight.intensity = 7 + 1.15 * chaos + .25 * progress.finale
   }
 
   useFrame((_, delta) => {

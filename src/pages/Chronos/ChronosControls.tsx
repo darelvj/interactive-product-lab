@@ -20,7 +20,7 @@ export function ChronosControls({ mode, exploreMinutes, onModeChange, onExploreC
   }, [mode])
 
   const time = mode === 'live' ? formatClock(liveSeconds) : formatClock(exploreMinutes * 60)
-  return <div className="chronos-controls" aria-label="Watch time controls">
+  return <div className="chronos-controls" role="group" aria-label="Watch time controls">
     <div className="chronos-controls__top"><span>TIME / 02</span><output aria-live="off">{time}</output></div>
     <div className="chronos-controls__modes" role="group" aria-label="Time mode">
       <button type="button" aria-pressed={mode === 'live'} onClick={() => onModeChange('live')}>LIVE</button>

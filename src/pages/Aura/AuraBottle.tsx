@@ -3,7 +3,7 @@ type AuraBottleProps = { className?: string }
 /** A stylized, front-facing product illustration. The groups are separate for future anatomy work. */
 export function AuraBottle({ className = '' }: AuraBottleProps) {
   return <svg className={className} viewBox="0 0 400 760" role="img" aria-labelledby="aura-bottle-title" xmlns="http://www.w3.org/2000/svg">
-    <title id="aura-bottle-title">Stylized AURA bottle in smoked silver with a brushed metal cap</title>
+    <title id="aura-bottle-title">Stylized AURA bottle</title>
     <defs>
       <linearGradient id="aura-body" x1="0" x2="1"><stop stopColor="#1e292e"/><stop offset=".13" stopColor="#657980"/><stop offset=".29" stopColor="#a7b8b8"/><stop offset=".44" stopColor="#596d73"/><stop offset=".66" stopColor="#26383f"/><stop offset=".88" stopColor="#63757a"/><stop offset="1" stopColor="#131e25"/></linearGradient>
       <linearGradient id="aura-body-overlay" x1="0" y1="0" x2=".1" y2="1"><stop stopColor="#b6d2d4" stopOpacity=".48"/><stop offset=".35" stopColor="#52676c" stopOpacity=".08"/><stop offset=".7" stopColor="#0d2028" stopOpacity=".16"/><stop offset="1" stopColor="#10191f" stopOpacity=".72"/></linearGradient>

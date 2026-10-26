@@ -85,15 +85,16 @@ function ChronosBalance({ rig }: { rig: ChronosRig }) {
 }
 
 function EscapementLever({ rig }: { rig: ChronosRig }) {
-  return <group ref={node => { rig.lever = node }} name="escapement-lever" position={[0.57, -0.3, 0.13]}>
-    <mesh rotation={[0, 0, -0.13]} name="lever-arm">
+  // Place the group origin on the actual pallet-fork pivot so the jewel stays fixed.
+  return <group ref={node => { rig.lever = node }} name="escapement-lever" position={[0.57, -0.435, 0.13]}>
+    <mesh position={[0, 0.135, 0]} rotation={[0, 0, -0.13]} name="lever-arm">
       <boxGeometry args={[0.038, 0.265, 0.029]} />
       <meshStandardMaterial {...edgeMetal} />
     </mesh>
-    <mesh position={[0.012, 0.132, 0]} name="pallet-fork"><boxGeometry args={[0.16, 0.026, 0.029]} /><meshStandardMaterial {...champagne} /></mesh>
-    <mesh position={[-0.06, 0.143, 0.015]} name="entry-pallet"><boxGeometry args={[0.023, 0.052, 0.03]} /><meshStandardMaterial {...movementDark} /></mesh>
-    <mesh position={[0.08, 0.143, 0.015]} name="exit-pallet"><boxGeometry args={[0.023, 0.052, 0.03]} /><meshStandardMaterial {...movementDark} /></mesh>
-    <mesh position={[0, -0.135, 0.012]} name="lever-pivot"><sphereGeometry args={[0.043, 10, 8]} /><meshStandardMaterial {...champagne} /></mesh>
+    <mesh position={[0.012, 0.267, 0]} name="pallet-fork"><boxGeometry args={[0.16, 0.026, 0.029]} /><meshStandardMaterial {...champagne} /></mesh>
+    <mesh position={[-0.06, 0.278, 0.015]} name="entry-pallet"><boxGeometry args={[0.023, 0.052, 0.03]} /><meshStandardMaterial {...movementDark} /></mesh>
+    <mesh position={[0.08, 0.278, 0.015]} name="exit-pallet"><boxGeometry args={[0.023, 0.052, 0.03]} /><meshStandardMaterial {...movementDark} /></mesh>
+    <mesh position={[0, 0, 0.012]} name="lever-pivot"><sphereGeometry args={[0.043, 10, 8]} /><meshStandardMaterial {...champagne} /></mesh>
   </group>
 }
 

@@ -35,22 +35,19 @@ export function LoopPlaygroundControls({ simulation, sceneStatus }: { simulation
     setFeedback(mode === 'FLOW' ? 'Flow: synchronized circulation restored.' : 'Chaos: magnetic surges and varied rail motion active.')
   }
 
-  return <div className="loop-console" aria-label="LOOP playground controls">
-    <div className="loop-console__topline">
-      <span>EXPERIMENT / 001</span>
-      <span className="loop-console__system"><i aria-hidden="true" data-paused={state.paused} />SYSTEM {state.paused ? 'PAUSED' : 'ACTIVE'}</span>
-    </div>
-    <fieldset className="loop-console__mode">
-      <legend>OPERATING MODE</legend>
-      <div className="loop-console__mode-body">
-        <div className="loop-console__segments loop-console__mode-options">
-          {(['FLOW', 'CHAOS'] as const).map(mode => <button key={mode} type="button" aria-pressed={state.operatingMode === mode} disabled={!available} onClick={() => chooseOperatingMode(mode)}>{mode}</button>)}
+  return <div className="loop-console" role="group" aria-label="LOOP playground controls">
+    <div className="loop-console__panel loop-console__panel--left">
+      <div className="loop-console__topline"><span>EXPERIMENT / 001</span></div>
+      <fieldset className="loop-console__mode">
+        <legend>OPERATING MODE</legend>
+        <div className="loop-console__mode-body">
+          <div className="loop-console__segments loop-console__mode-options">
+            {(['FLOW', 'CHAOS'] as const).map(mode => <button key={mode} type="button" aria-pressed={state.operatingMode === mode} disabled={!available} onClick={() => chooseOperatingMode(mode)}>{mode}</button>)}
+          </div>
+          <p>{state.operatingMode === 'FLOW' ? 'Predictable motion. Perfect rhythm.' : 'Same machine. Unexpected decisions.'}</p>
+          <span className="loop-console__mode-status">{state.operatingMode === 'FLOW' ? 'FLOW / SYNCHRONIZED' : 'CHAOS / SURGES ACTIVE'}</span>
         </div>
-        <p>{state.operatingMode === 'FLOW' ? 'Predictable motion. Perfect rhythm.' : 'Same machine. Unexpected decisions.'}</p>
-        <span className="loop-console__mode-status">{state.operatingMode === 'FLOW' ? 'FLOW / SYNCHRONIZED CIRCULATION' : 'CHAOS / MAGNETIC SURGES ACTIVE'}</span>
-      </div>
-    </fieldset>
-    <div className="loop-console__grid">
+      </fieldset>
       <fieldset className="loop-console__module loop-console__module--route">
         <legend>01 / CHOOSE A ROUTE</legend>
         <div className="loop-console__segments">
@@ -58,7 +55,9 @@ export function LoopPlaygroundControls({ simulation, sceneStatus }: { simulation
         </div>
         <p>{state.routeMode === 'AUTO' ? `Next: ${state.nextRoute === 'A' ? 'Helix' : 'Orbit'}` : `${state.routeMode === 'HELIX' ? 'Helix' : 'Orbit'} on future launches`}{state.routeChangePending ? ' · Diverter aligning' : ''}</p>
       </fieldset>
-
+    </div>
+    <div className="loop-console__panel loop-console__panel--right">
+      <div className="loop-console__topline"><span className="loop-console__system"><i aria-hidden="true" data-paused={state.paused} />SYSTEM {state.paused ? 'PAUSED' : 'ACTIVE'}</span></div>
       <div className="loop-console__module loop-console__module--release">
         <span className="loop-console__label">02 / ADD MOTION</span>
         <button className="loop-console__release" type="button" onClick={releaseMarble} disabled={!available || atCapacity}>Release marble <span aria-hidden="true">↗</span></button>
@@ -79,7 +78,7 @@ export function LoopPlaygroundControls({ simulation, sceneStatus }: { simulation
         </div>
         <p>Pause holds every mechanism in place.</p>
       </div>
+      <p className="loop-console__feedback" role="status" aria-live="polite">{sceneStatus === 'unavailable' ? '3D preview is unavailable on this device. The route is described below.' : sceneStatus === 'loading' ? 'Preparing the machine…' : feedback}</p>
     </div>
-    <p className="loop-console__feedback" role="status" aria-live="polite">{sceneStatus === 'unavailable' ? '3D preview is unavailable on this device. The route is described below.' : sceneStatus === 'loading' ? 'Preparing the machine…' : feedback}</p>
   </div>
 }

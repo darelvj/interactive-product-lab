@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "test:loop": "node tests/loop-controller.test.mjs",
+    "test:loop-story": "node tests/loop-story.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

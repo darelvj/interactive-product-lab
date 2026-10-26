@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 export function RouteScrollManager() {
   const location = useLocation()
   const previousPath = useRef<string | null>(null)
+  const focusPath = useRef(location.pathname)
 
   useLayoutEffect(() => {
     const previous = window.history.scrollRestoration
@@ -48,6 +49,39 @@ export function RouteScrollManager() {
       })
     })
     return () => { active = false; cancelAnimationFrame(frame) }
+  }, [location.key, location.pathname, location.hash])
+
+  useLayoutEffect(() => {
+    const routeChanged = focusPath.current !== location.pathname
+    focusPath.current = location.pathname
+    if (!routeChanged && !location.hash) return
+
+    let active = true
+    let frame = 0
+    let observer: MutationObserver | undefined
+    const focusDestination = () => {
+      const id = location.hash.slice(1)
+      const destination = id
+        ? document.getElementById(decodeURIComponent(id))
+        : document.querySelector<HTMLElement>('main h1')
+      if (!destination) return false
+      if (!destination.matches('a[href],button,input,select,textarea,[tabindex]')) destination.setAttribute('tabindex', '-1')
+      frame = requestAnimationFrame(() => {
+        if (active) destination.focus({ preventScroll: true })
+      })
+      observer?.disconnect()
+      return true
+    }
+
+    if (!focusDestination()) {
+      observer = new MutationObserver(() => { focusDestination() })
+      observer.observe(document.body, { childList: true, subtree: true })
+    }
+    return () => {
+      active = false
+      cancelAnimationFrame(frame)
+      observer?.disconnect()
+    }
   }, [location.key, location.pathname, location.hash])
 
   return null

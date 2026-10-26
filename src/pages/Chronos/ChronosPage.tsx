@@ -21,7 +21,8 @@ export function ChronosPage() {
   const anatomyRef = useRef<HTMLElement>(null)
   const anatomyOverlayRef = useRef<HTMLDivElement>(null)
   const craftRef = useRef<HTMLElement>(null)
-  const storyRefs = useMemo(() => ({ story: storyRef, movement: movementRef, overlay: overlayRef, anatomy: anatomyRef, anatomyOverlay: anatomyOverlayRef, craft: craftRef }), [])
+  const endingRef = useRef<HTMLElement>(null)
+  const storyRefs = useMemo(() => ({ story: storyRef, movement: movementRef, overlay: overlayRef, anatomy: anatomyRef, anatomyOverlay: anatomyOverlayRef, craft: craftRef, ending: endingRef }), [])
   const rig = useMemo(createChronosRig, [])
   const [sceneReady, setSceneReady] = useState(false)
   const onSceneReady = useCallback(() => setSceneReady(true), [])
@@ -62,7 +63,7 @@ export function ChronosPage() {
   }, [])
 
   return <div className={`site chronos-page${sceneReady ? ' is-scene-ready' : ''}`} ref={pageRef}>
-    <main><div className="chronos-story" ref={storyRef}>
+    <main id="main-content" tabIndex={-1}><div className="chronos-story" ref={storyRef}>
       <section className="chronos-hero" aria-labelledby="chronos-title">
         <div className="chronos-hero__ambient" aria-hidden="true" />
         <div className="chronos-hero__orbit" aria-hidden="true"><span /><span /><span /></div>
@@ -137,11 +138,11 @@ export function ChronosPage() {
           </div>
         </div>
       </section>
-    </div>
-      <section className="chronos-detail" id="chronos-detail" aria-labelledby="chronos-detail-title">
+      <section className="chronos-detail" id="chronos-detail" ref={endingRef} aria-labelledby="chronos-detail-title">
         <span className="chronos-detail__index">01 / FIRST IMPRESSION</span>
         <div><h2 id="chronos-detail-title">Every second,<br/><em>considered.</em></h2><p>Charcoal, brushed metal, and a measured touch of warmth. CHRONOS begins with the quiet architecture of a watch.</p><Link to="/#collection" className="chronos-return">Back to the collection <span aria-hidden="true">↗</span></Link></div>
       </section>
+    </div>
     </main>
   </div>
 }

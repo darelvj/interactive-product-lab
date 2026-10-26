@@ -161,6 +161,7 @@ export function AuraAnatomy({ rig, sceneReady }: { rig: AuraRig; sceneReady: boo
         .to(cap.position, { y: 0, duration: .65 }, 3.45)
         .to(base.position, { y: 0, duration: .65 }, 3.45)
         .to(root.rotation, { y: 0, duration: .65 }, 3.45)
+        .to(root.scale, { x: 1, y: 1, z: 1, duration: .65 }, 3.45)
         .to({}, { duration: .4 }, 4.1)
       update()
     }, element)
