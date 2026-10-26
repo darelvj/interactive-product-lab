@@ -65,10 +65,9 @@ src/
 tests/                   LOOP simulation checks
 ```
 
-## Screenshots and live demo
+## Screenshots
 
-- **Screenshots:** To be added after the first visual review.
-- **Live demo:** Deployment URL to be added when the site is published.
+Screenshots may be added in a future update. This repository is the project deliverable; no hosted deployment is planned.
 
 ## Project status
 
